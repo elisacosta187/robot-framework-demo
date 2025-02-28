@@ -15,6 +15,7 @@ log.html
 output.xml
 report.html
 ./test-results
+test-results.xml
 
 # Ignore configuration files containing secrets or sensitive data
 *.env
