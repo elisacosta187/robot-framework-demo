@@ -1,0 +1,35 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment (if used)
+venv/
+.venv
+
+# Ignore test output or log directories
+output/
+log/
+reports/
+log.html
+output.xml
+report.html
+./test-results
+
+# Ignore configuration files containing secrets or sensitive data
+*.env
+*.local
+
+# Ignore IDE-specific files and directories
+.vscode/
+.idea/
+
+# Ignore the .git directory itself
+.git/
+
+# Ignore node_modules (if using Node.js for testing dependencies)
+node_modules/
+
+# Ignore coverage files (if using coverage tools like pytest-cov)
+.coverage
+*.coveragerc
