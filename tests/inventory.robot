@@ -1,7 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
 Resource   ../resources/loginPage.robot
-Resource   ../resources/inventoryPage.robot
 Resource   ../resources/common.robot
 
 Suite Setup      Open Headless Browser And Maximize    ${LOGIN_URL}
