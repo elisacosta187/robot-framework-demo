@@ -1,0 +1,11 @@
+services:
+  robot-framework:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      - DISPLAY=:99
+    ports:
+      - "5900:5900"
+    entrypoint: ["robot", "--output", "output", "--log", "log", "--report", "report", "tests/"]
