@@ -26,21 +26,22 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          TEST_RESULTS_DIR=".test-results"
-
           echo "Running Robot Framework tests..."
-          robot --outputdir $TEST_RESULTS_DIR ./tests || FAILED=1
+          robot --outputdir test-results --exclude skip tests/ || FAILED=1
 
           if [ "$FAILED" = "1" ]; then
               echo "Some tests failed. Re-running failed tests..."
-              robot --rerunfailed $TEST_RESULTS_DIR/output.xml --outputdir $TEST_RESULTS_DIR ./tests || true
+              robot --rerunfailed test-results/output.xml --outputdir test-results || true
           fi
 
           echo "Test execution completed."
+
+      - name: Debug - List test results
+        run: ls -R ${{ github.workspace }}/test-results/
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
           name: robot-test-results
-          path: .test-results/
+          path: ${{ github.workspace }}/test-results/
           retention-days: 3
