@@ -17,17 +17,17 @@ HTTPS
 ```
 git clone https://github.com/elisacosta187/robot-framework-demo.git
 ```
-### Install Robot Framework, SeleniumLibrary & Requests Library
+### Install Robot Framework and all dependencies
 Make sure pip is installed, if not, run:
 
 ```
 brew install python
 ```
 
-Then install Robot Framework, SeleniumLibrary and Requests Library:
+Then install dependencies:
 
 ```
-pip install robotframework robotframework-seleniumlibrary robotframework-requests
+pip install -r requirements.txt
 ```
 
 ## Useful commands
