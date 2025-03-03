@@ -22,31 +22,25 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Install additional dependencies if needed
           pip install -r requirements.txt
 
       - name: Run Robot Framework tests
         run: |
-          if ! robot --output=./test-results results --exclude skip tests/; then
-              echo "Robot Framework tests failed. Rerunning failed tests..."
-              if [ -f .test-results/output.xml ]; then
-                  robot --rerunfailed .test-results/output.xml --output=./test-results results_rerun tests/ || true
-                  if [ -f .test-results_rerun/output.xml ]; then
-                      robot --output=./test-results .test-results/output.xml --log .test-results/log.html --report .test-results/report.html --merge .test-results/output.xml .test-results_rerun/output.xml
-                  else
-                      echo "No output.xml file found from rerun. Skipping merge."
-                  fi
-              else
-                  echo "No output.xml file found. Cannot rerun failed tests."
-              fi
+          TEST_RESULTS_DIR=".test-results"
+
+          echo "Running Robot Framework tests..."
+          robot --outputdir $TEST_RESULTS_DIR ./tests || FAILED=1
+
+          if [ "$FAILED" = "1" ]; then
+              echo "Some tests failed. Re-running failed tests..."
+              robot --rerunfailed $TEST_RESULTS_DIR/output.xml --outputdir $TEST_RESULTS_DIR ./tests || true
           fi
 
-          echo "Script execution completed"
-        continue-on-error: true
+          echo "Test execution completed."
 
-      - name: Upload artifact
+      - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
-          path: ./results
           name: robot-test-results
+          path: .test-results/
           retention-days: 3
