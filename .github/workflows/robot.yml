@@ -29,10 +29,10 @@ jobs:
         run: |
           if ! robot --output=./test-results results --exclude skip tests/; then
               echo "Robot Framework tests failed. Rerunning failed tests..."
-              if [ -f results/output.xml ]; then
-                  robot --rerunfailed results/output.xml --output=./test-results results_rerun tests/ || true
-                  if [ -f results_rerun/output.xml ]; then
-                      robot --output=./test-results results/output.xml --log results/log.html --report results/report.html --merge results/output.xml results_rerun/output.xml
+              if [ -f .test-results/output.xml ]; then
+                  robot --rerunfailed .test-results/output.xml --output=./test-results results_rerun tests/ || true
+                  if [ -f .test-results_rerun/output.xml ]; then
+                      robot --output=./test-results .test-results/output.xml --log .test-results/log.html --report .test-results/report.html --merge .test-results/output.xml .test-results_rerun/output.xml
                   else
                       echo "No output.xml file found from rerun. Skipping merge."
                   fi
